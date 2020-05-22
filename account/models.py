@@ -7,6 +7,8 @@ from django.contrib.auth.base_user import AbstractBaseUser
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from .managers import CustomUserManager
+from django.conf import settings
+
 
 # Create your models here.
 
@@ -68,3 +70,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         "Does the user have permissions to view the app `app_label`?"
         # Simplest possible answer: Yes, always
         return True
+
+
+class UserProfile(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete= models.CASCADE)
