@@ -83,11 +83,5 @@ class CustomUserAdmin(BaseUserAdmin):
     ordering = ('email', 'first_name', 'last_name')
     filter_horizontal = ()
 
-
-
-
-
-
-
 admin.site.register(CustomUser,CustomUserAdmin)
 admin.site.register(UserProfile)
