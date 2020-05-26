@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from rest_framework_simplejwt.tokens import AccessToken, RefreshToken
 from . import models
+
 class RegisterUserSerializer(serializers.ModelSerializer):
     """Serializer for creating user objects."""
 
