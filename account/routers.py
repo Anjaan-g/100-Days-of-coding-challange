@@ -4,4 +4,4 @@ from . import views
 
 router = routers.DefaultRouter()
 
-router.register('',views.RegisterView)
+router.register('',views.UserView)
