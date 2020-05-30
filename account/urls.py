@@ -4,5 +4,5 @@ from .routers import router
 app_name = 'account'
 
 urlpatterns = [
-    path('',include(router.urls)),
+    path('account/',include(router.urls)),
 ]
