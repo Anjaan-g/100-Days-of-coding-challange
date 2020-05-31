@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from .serializers import  RegisterUserSerializer, UserSerializer
+from .serializers import  RegisterUserSerializer, UserSerializer, ProfileSerializer
 from rest_framework import viewsets, generics, permissions, status
-from .models import CustomUser
+from .models import CustomUser, UserProfile
 from rest_framework.permissions import AllowAny, IsAdminUser
 
 # Create your views here.
@@ -31,4 +31,12 @@ class UserView(viewsets.ModelViewSet):
             return [permission() for permission in self.permission_classes]
 # class RegisterView(viewsets.ModelViewSet):
 #     serializer = RegisterUserSerializer
-    
+
+class UserProfileView(viewsets.ModelViewSet):
+    model = UserProfile
+    serializer_class = ProfileSerializer
+    queryset = model.objects.all()
+    permission_classes_by_action = {
+        'create': [AllowAny], ## Anyone can register ####
+        'list': [AllowAny], #### TO list all users without login for now ####
+    }

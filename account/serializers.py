@@ -11,7 +11,10 @@ class UserSerializer(serializers.ModelSerializer):
     }
     class Meta:
         model = models.CustomUser
-        fields = '__all__'
+        fields = (
+            'email', 'password', 'first_name', 'last_name', 'is_active',
+            'is_staff'
+        )
         lookup_field = 'email'
         write_only_fields = ('password')
         # read_only_fields = ('is_retailer',)
@@ -38,6 +41,10 @@ class UserSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.UserProfile
+        fields = '__all__'
 
 class RegisterUserSerializer(serializers.ModelSerializer):
     """Serializer for creating user objects."""

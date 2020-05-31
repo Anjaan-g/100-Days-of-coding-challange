@@ -4,4 +4,5 @@ from . import views
 
 router = routers.DefaultRouter()
 
-router.register('',views.UserView)
+router.register('user',views.UserView)
+router.register('profile',views.UserProfileView)
