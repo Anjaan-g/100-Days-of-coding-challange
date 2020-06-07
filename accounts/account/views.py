@@ -35,7 +35,7 @@ class UserView(viewsets.ModelViewSet):
 class UserProfileView(viewsets.ModelViewSet):
     model = UserProfile
     serializer_class = ProfileSerializer
-    queryset = model.objects.all()
+    queryset = UserProfile.objects.all()
     permission_classes_by_action = {
         'create': [AllowAny], ## Anyone can register ####
         'list': [AllowAny], #### TO list all users without login for now ####
