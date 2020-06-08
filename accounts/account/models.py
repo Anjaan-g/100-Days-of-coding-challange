@@ -18,7 +18,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     )
     first_name = models.CharField(_('first name'), max_length=30, blank=True)
     last_name = models.CharField(_('last name'), max_length=30, blank=True)
-
+    phone_no = models.IntegerField()
     is_admin = models.BooleanField(default=False)
     is_retailer = models.BooleanField('retailer',default=False)
 

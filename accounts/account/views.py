@@ -3,7 +3,7 @@ from .serializers import  RegisterUserSerializer, UserSerializer, ProfileSeriali
 from rest_framework import viewsets, generics, permissions, status
 from .models import CustomUser, UserProfile
 from rest_framework.permissions import AllowAny, IsAdminUser
-
+from rest_framework.views import APIView
 # Create your views here.
 
 class UserView(viewsets.ModelViewSet):
@@ -29,6 +29,7 @@ class UserView(viewsets.ModelViewSet):
         except KeyError: 
             # action is not set return default permission_classes
             return [permission() for permission in self.permission_classes]
+
 # class RegisterView(viewsets.ModelViewSet):
 #     serializer = RegisterUserSerializer
 
@@ -40,3 +41,6 @@ class UserProfileView(viewsets.ModelViewSet):
         'create': [AllowAny], ## Anyone can register ####
         'list': [AllowAny], #### TO list all users without login for now ####
     }
+
+class LoginView(APIView):
+    pass

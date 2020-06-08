@@ -12,8 +12,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.CustomUser
         fields = (
-            'email', 'password', 'first_name', 'last_name', 'is_active',
-            'is_staff'
+            'email', 'password', 'first_name', 'last_name', 'phone_no'
         )
         lookup_field = 'email'
         write_only_fields = ('password')
@@ -73,3 +72,15 @@ class RegisterUserSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()    
         return user
+
+class LoginSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.UserProfile
+    
+    email = serializers.EmailField(required=True)
+    password = serializers.CharField(min_length=8,write_only=True)
+    widgets = {
+      'password': forms.PasswordInput()
+    }
+    def login():
+        pass
