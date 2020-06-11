@@ -83,4 +83,4 @@ class LoginSerializer(serializers.ModelSerializer):
       'password': forms.PasswordInput()
     }
     def login():
-        pass
+        email = get_validated_data['email']

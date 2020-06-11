@@ -1,9 +1,10 @@
 from django.shortcuts import render
-from .serializers import  RegisterUserSerializer, UserSerializer, ProfileSerializer
-from rest_framework import viewsets, generics, permissions, status
+from .serializers import  RegisterUserSerializer, UserSerializer, ProfileSerializer,LoginSerializer
+from rest_framework import viewsets, generics, permissions, status, mixins 
 from .models import CustomUser, UserProfile
 from rest_framework.permissions import AllowAny, IsAdminUser
 from rest_framework.views import APIView
+from rest_framework.viewsets import GenericViewSet
 # Create your views here.
 
 class UserView(viewsets.ModelViewSet):
@@ -42,5 +43,6 @@ class UserProfileView(viewsets.ModelViewSet):
         'list': [AllowAny], #### TO list all users without login for now ####
     }
 
-class LoginView(APIView):
-    pass
+class LoginViewSet(GenericViewSet):
+    serializer_class = LoginSerializer
+    queryset = CustomUser.objects.all()

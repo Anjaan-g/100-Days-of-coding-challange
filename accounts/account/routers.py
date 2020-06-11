@@ -6,3 +6,4 @@ router = routers.DefaultRouter()
 
 router.register('user',views.UserView)
 router.register('profile',views.UserProfileView)
+router.register('login',views.LoginViewSet)
