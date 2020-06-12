@@ -76,11 +76,19 @@ class RegisterUserSerializer(serializers.ModelSerializer):
 class LoginSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.UserProfile
+        fields = (
+            'email',
+            'password',
+        )
     
     email = serializers.EmailField(required=True)
     password = serializers.CharField(min_length=8,write_only=True)
     widgets = {
       'password': forms.PasswordInput()
     }
-    def login():
-        email = get_validated_data['email']
+    def post(self, email, password):
+        email = self.validated_data('email')
+        password = self.validated_data('password')
+        
+    # def login():
+    #     email = get_validated_data['email']

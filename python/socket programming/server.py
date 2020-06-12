@@ -6,6 +6,8 @@ PORT = 5050
 # SERVER = "192.168.100.34" '''This is hardcoded for this computer'''
 SERVER = socket.gethostbyname(socket.gethostname()) #This is dynamic and works on every computer.
 ADDR = (SERVER,PORT)
+FORMAT = 'utf-8'
+DISCONNECT_MSG = "!DISCONNECT"
 
 #Type of addresses we're working with.
 server = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
@@ -16,15 +18,25 @@ def handle_client(conn, addr):
 
     connected = True
     while connected:
-        msg = conn.recv(HEADER)
+        msg_length = conn.recv(HEADER).decode(FORMAT)
+        if msg_length:
+            msg_length = int(msg_length)
+            msg = conn.recv(msg_length).decode(FORMAT)
+            if msg == DISCONNECT_MSG:
+                connected = False
+
+            print(f"[{addr}]{msg}")
+            conn.send("Msg Received".encode(FORMAT))
+    conn.close()
 
 def start():
     server.listen()
+    print(f"[LISTENING] Server is listening at {SERVER}")
     while True:
         conn, addr = server.accept()
         thread = threading.Thread(target=handle_client, args=(conn, addr))
         thread.start()
-        print(f"[ACTIVE CONNECTIONS]{threading.activeCount()-1}")
+        print(f"[ACTIVE CONNECTIONS]  {threading.activeCount()-1}")
 
 print("[STARTING] server is starting...")
 start()

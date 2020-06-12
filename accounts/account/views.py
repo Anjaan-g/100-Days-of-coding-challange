@@ -43,6 +43,7 @@ class UserProfileView(viewsets.ModelViewSet):
         'list': [AllowAny], #### TO list all users without login for now ####
     }
 
-class LoginViewSet(GenericViewSet):
+class LoginViewSet(viewsets.ModelViewSet):
     serializer_class = LoginSerializer
     queryset = CustomUser.objects.all()
+    model = CustomUser
