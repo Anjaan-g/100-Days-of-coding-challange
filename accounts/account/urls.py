@@ -10,5 +10,5 @@ urlpatterns = [
     path('token/',obtain_jwt_token,name='obtain-token'),
     path('token/refresh',refresh_jwt_token,name='refresh-token'),
     path('token/verify',verify_jwt_token,name='verify-token'),
-        
+   
 ]
