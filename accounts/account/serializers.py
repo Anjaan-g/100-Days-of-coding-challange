@@ -1,14 +1,16 @@
 from rest_framework import permissions, generics, serializers
-from rest_framework_simplejwt.tokens import AccessToken, RefreshToken
+# from rest_framework_simplejwt.tokens import AccessToken, RefreshToken
 from . import models
 from django import forms
+
 
 class UserSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(required=True)
     password = serializers.CharField(min_length=8, write_only=True)
     widgets = {
-      'password': forms.PasswordInput()
+        'password': forms.PasswordInput()
     }
+
     class Meta:
         model = models.CustomUser
         fields = (
@@ -17,33 +19,36 @@ class UserSerializer(serializers.ModelSerializer):
         lookup_field = 'email'
         write_only_fields = ('password')
         # read_only_fields = ('is_retailer',)
-    
+
     def get_queryset(self):
         if self.request.user.is_staff:
             return models.CustomUser.objects.all()
         else:
             return self.request.user
-    
+
     def create(self, validated_data):
         user = CustomUser(
             email=validated_data['email'],
-            first_name = validated_data['first_name'],
-            last_name = validated_data['last_name'],
-            phone_no = validated_data['phone_no']
+            first_name=validated_data['first_name'],
+            last_name=validated_data['last_name'],
+            phone_no=validated_data['phone_no']
 
         )
         user.set_password(validated_data['password'])
         user.save()
         return user
+
     def update(self, instance, validated_data):
         instance.set_password(validated_data['password'])
         instance.save()
         return instance
 
+
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.UserProfile
         fields = '__all__'
+
 
 class RegisterUserSerializer(serializers.ModelSerializer):
     """Serializer for creating user objects."""
@@ -70,8 +75,9 @@ class RegisterUserSerializer(serializers.ModelSerializer):
             email=validated_data['email']
         )
         user.set_password(validated_data['password'])
-        user.save()    
+        user.save()
         return user
+
 
 class LoginSerializer(serializers.ModelSerializer):
     class Meta:
@@ -80,15 +86,16 @@ class LoginSerializer(serializers.ModelSerializer):
             'email',
             'password',
         )
-    
+
     email = serializers.EmailField(required=True)
-    password = serializers.CharField(min_length=8,write_only=True)
+    password = serializers.CharField(min_length=8, write_only=True)
     widgets = {
-      'password': forms.PasswordInput()
+        'password': forms.PasswordInput()
     }
+
     def post(self, email, password):
         email = self.validated_data('email')
         password = self.validated_data('password')
-        
+
     # def login():
     #     email = get_validated_data['email']
