@@ -17,7 +17,7 @@ distro==1.4.0
 Django==3.0.7
 django-allauth==0.42.0
 django-rest-auth==0.9.5
-djangorestframework==3.11.0
+djangorestframework==3.11.2
 drf-jwt==1.16.1
 drf-yasg==1.17.1
 html5lib==1.0.1
